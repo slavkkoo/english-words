@@ -818,6 +818,15 @@
         }
 
         function markWord(known) {
+            const card = document.getElementById('flashcard');
+            const isFlipped = card.classList.contains('flipped');
+
+            // If "Don't know" and card not flipped - show translation first
+            if (!known && !isFlipped) {
+                card.classList.add('flipped');
+                return;
+            }
+
             const word = currentSession[currentIndex];
 
             if (known) {
