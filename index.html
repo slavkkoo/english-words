@@ -294,12 +294,25 @@
             margin-bottom: 8px;
         }
 
+        .word-transcription {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin: 8px 0 16px;
+            font-style: italic;
+        }
+
         .word-russian {
             font-family: 'Playfair Display', serif;
             font-size: 36px;
             font-weight: 600;
             color: var(--primary);
             line-height: 1.2;
+        }
+
+        .word-alt {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-top: 8px;
         }
 
         .word-source {
@@ -597,7 +610,9 @@
                 </div>
                 <div class="card-back">
                     <div class="word-english" id="word-english-back">Word</div>
+                    <div class="word-transcription" id="word-transcription"></div>
                     <div class="word-russian" id="word-russian">Слово</div>
+                    <div class="word-alt" id="word-alt"></div>
                     <div class="word-source" id="word-source">Oxford 3000</div>
                 </div>
             </div>
@@ -795,6 +810,8 @@
             document.getElementById('word-english').textContent = word.en;
             document.getElementById('word-english-back').textContent = word.en;
             document.getElementById('word-russian').textContent = word.ru || '—';
+            document.getElementById('word-transcription').textContent = '';
+            document.getElementById('word-alt').textContent = '';
 
             const source = word.source === 'personal' ? 'Мой словарь' : `Oxford 3000`;
             const level = word.level ? ` • ${word.level}` : '';
@@ -812,6 +829,50 @@
             // Reset card and button
             document.getElementById('flashcard').classList.remove('flipped');
             document.getElementById('dont-know-btn').textContent = 'Не знаю';
+
+            // Load transcription and definition
+            loadWordDetails(word.en);
+        }
+
+        // Cache for API responses
+        let wordCache = JSON.parse(localStorage.getItem('word-cache') || '{}');
+
+        async function loadWordDetails(word) {
+            // Check cache first
+            if (wordCache[word]) {
+                displayWordDetails(wordCache[word]);
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    const details = {
+                        transcription: data[0]?.phonetic || data[0]?.phonetics?.find(p => p.text)?.text || '',
+                        definition: data[0]?.meanings?.[0]?.definitions?.[0]?.definition || ''
+                    };
+                    wordCache[word] = details;
+                    // Save cache (limit size)
+                    if (Object.keys(wordCache).length > 500) {
+                        const keys = Object.keys(wordCache);
+                        delete wordCache[keys[0]];
+                    }
+                    localStorage.setItem('word-cache', JSON.stringify(wordCache));
+                    displayWordDetails(details);
+                }
+            } catch (e) {
+                console.log('API error:', e);
+            }
+        }
+
+        function displayWordDetails(details) {
+            if (details.transcription) {
+                document.getElementById('word-transcription').textContent = details.transcription;
+            }
+            if (details.definition) {
+                document.getElementById('word-alt').textContent = details.definition;
+            }
         }
 
         function flipCard() {
