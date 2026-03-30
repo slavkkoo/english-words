@@ -603,7 +603,7 @@
             </div>
 
             <div class="action-buttons" id="action-buttons">
-                <button class="action-btn dont-know" onclick="markWord(false)">Не знаю</button>
+                <button class="action-btn dont-know" id="dont-know-btn" onclick="markWord(false)">Не знаю</button>
                 <button class="action-btn know" onclick="markWord(true)">Знаю</button>
             </div>
 
@@ -809,8 +809,9 @@
             document.getElementById('session-progress').textContent =
                 `${currentIndex + 1} / ${currentSession.length}`;
 
-            // Reset card
+            // Reset card and button
             document.getElementById('flashcard').classList.remove('flipped');
+            document.getElementById('dont-know-btn').textContent = 'Не знаю';
         }
 
         function flipCard() {
@@ -820,10 +821,12 @@
         function markWord(known) {
             const card = document.getElementById('flashcard');
             const isFlipped = card.classList.contains('flipped');
+            const dontKnowBtn = document.getElementById('dont-know-btn');
 
             // If "Don't know" and card not flipped - show translation first
             if (!known && !isFlipped) {
                 card.classList.add('flipped');
+                dontKnowBtn.textContent = 'Дальше';
                 return;
             }
 
