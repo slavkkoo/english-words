@@ -910,7 +910,7 @@ const WORDS = [
     "en": "coat",
     "ru": "Пальто",
     "level": "A1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "coffee",
@@ -1276,7 +1276,7 @@ const WORDS = [
     "en": "door",
     "ru": "дверь",
     "level": "A1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "down",
@@ -1768,7 +1768,7 @@ const WORDS = [
     "en": "foot",
     "ru": "ступня",
     "level": "A1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "football",
@@ -4582,7 +4582,7 @@ const WORDS = [
     "en": "thirsty",
     "ru": "жаждущий",
     "level": "A1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "thirteen",
@@ -5266,7 +5266,7 @@ const WORDS = [
     "en": "ability",
     "ru": "способность",
     "level": "A2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "able",
@@ -5440,7 +5440,7 @@ const WORDS = [
     "en": "ankle",
     "ru": "лодыжка",
     "level": "A2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "anybody",
@@ -5488,7 +5488,7 @@ const WORDS = [
     "en": "apply",
     "ru": "применять",
     "level": "A2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "architect",
@@ -5536,7 +5536,7 @@ const WORDS = [
     "en": "asleep",
     "ru": "спящий",
     "level": "A2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "assistant",
@@ -6766,7 +6766,7 @@ const WORDS = [
     "en": "evidence",
     "ru": "доказательство",
     "level": "A2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "exact",
@@ -6838,7 +6838,7 @@ const WORDS = [
     "en": "expression",
     "ru": "выражение",
     "level": "A2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "extreme",
@@ -6874,7 +6874,7 @@ const WORDS = [
     "en": "fair",
     "ru": "справедливый",
     "level": "A2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "fan",
@@ -7432,7 +7432,7 @@ const WORDS = [
     "en": "insect",
     "ru": "насекомое",
     "level": "A2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "inside",
@@ -7852,7 +7852,7 @@ const WORDS = [
     "en": "matter",
     "ru": "иметь значение",
     "level": "A2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "mayor",
@@ -7984,7 +7984,7 @@ const WORDS = [
     "en": "narrow",
     "ru": "узкий",
     "level": "A2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "national",
@@ -8230,7 +8230,7 @@ const WORDS = [
     "en": "pattern",
     "ru": "шаблон",
     "level": "A2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "peace",
@@ -9520,7 +9520,7 @@ const WORDS = [
     "en": "thick",
     "ru": "толстый",
     "level": "A2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "thief",
@@ -10000,7 +10000,7 @@ const WORDS = [
     "en": "admire",
     "ru": "восхищаться",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "admit",
@@ -10150,7 +10150,7 @@ const WORDS = [
     "en": "appreciate",
     "ru": "ценить",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "approximately",
@@ -10234,7 +10234,7 @@ const WORDS = [
     "en": "aware",
     "ru": "осведомленный",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "backward",
@@ -10450,7 +10450,7 @@ const WORDS = [
     "en": "ceiling",
     "ru": "потолок",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "celebration",
@@ -10516,7 +10516,7 @@ const WORDS = [
     "en": "cheerful",
     "ru": "жизнерадостный",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "chemical",
@@ -10576,7 +10576,7 @@ const WORDS = [
     "en": "clue",
     "ru": "Подсказка",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "coal",
@@ -11416,7 +11416,7 @@ const WORDS = [
     "en": "flood",
     "ru": "наводнение",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "flour",
@@ -11554,7 +11554,7 @@ const WORDS = [
     "en": "generous",
     "ru": "щедрый",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "gentle",
@@ -11902,7 +11902,7 @@ const WORDS = [
     "en": "intelligence",
     "ru": "интеллект",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "intend",
@@ -11914,7 +11914,7 @@ const WORDS = [
     "en": "intention",
     "ru": "намерение",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "invest",
@@ -12202,7 +12202,7 @@ const WORDS = [
     "en": "mild",
     "ru": "незначительный",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "mix",
@@ -12256,7 +12256,7 @@ const WORDS = [
     "en": "narrative",
     "ru": "повествование",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "nation",
@@ -12424,7 +12424,7 @@ const WORDS = [
     "en": "pale",
     "ru": "бледный",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "pan",
@@ -12724,7 +12724,7 @@ const WORDS = [
     "en": "priest",
     "ru": "священник",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "primary",
@@ -13120,7 +13120,7 @@ const WORDS = [
     "en": "roll",
     "ru": "рулон",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "romantic",
@@ -13378,7 +13378,7 @@ const WORDS = [
     "en": "soil",
     "ru": "почвы",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "solid",
@@ -13516,7 +13516,7 @@ const WORDS = [
     "en": "sudden",
     "ru": "внезапный",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "suffer",
@@ -13708,7 +13708,7 @@ const WORDS = [
     "en": "toe",
     "ru": "палец на ноге",
     "level": "B1",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "ton",
@@ -14062,7 +14062,7 @@ const WORDS = [
     "en": "abandon",
     "ru": "отказываться от",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "abroad",
@@ -14086,7 +14086,7 @@ const WORDS = [
     "en": "accompany",
     "ru": "сопровождать",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "accurate",
@@ -14098,7 +14098,7 @@ const WORDS = [
     "en": "accuse",
     "ru": "обвинять",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "acknowledge",
@@ -14134,7 +14134,7 @@ const WORDS = [
     "en": "adopt",
     "ru": "усыновить",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "advance",
@@ -14146,13 +14146,13 @@ const WORDS = [
     "en": "affair",
     "ru": "роман",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "afterward",
     "ru": "потом",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "agency",
@@ -14188,7 +14188,7 @@ const WORDS = [
     "en": "alter",
     "ru": "изменить",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "anger",
@@ -14218,13 +14218,13 @@ const WORDS = [
     "en": "anxious",
     "ru": "тревожный",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "apparent",
     "ru": "очевидный",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "apparently",
@@ -14236,7 +14236,7 @@ const WORDS = [
     "en": "appeal",
     "ru": "обращаться",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "approach",
@@ -14248,7 +14248,7 @@ const WORDS = [
     "en": "appropriate",
     "ru": "подходящее",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "approval",
@@ -14266,13 +14266,13 @@ const WORDS = [
     "en": "arise",
     "ru": "возникать",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "armed",
     "ru": "вооруженный",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "arms",
@@ -14314,7 +14314,7 @@ const WORDS = [
     "en": "assess",
     "ru": "оценивать",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "assessment",
@@ -14344,7 +14344,7 @@ const WORDS = [
     "en": "assume",
     "ru": "предполагать",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "attempt",
@@ -14356,7 +14356,7 @@ const WORDS = [
     "en": "attorney",
     "ru": "адвокат",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "bacteria",
@@ -14434,7 +14434,7 @@ const WORDS = [
     "en": "breast",
     "ru": "грудь",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "brief",
@@ -14608,7 +14608,7 @@ const WORDS = [
     "en": "commitment",
     "ru": "обязательство",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "committee",
@@ -14764,7 +14764,7 @@ const WORDS = [
     "en": "contribution",
     "ru": "вклад",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "convert",
@@ -14914,7 +14914,7 @@ const WORDS = [
     "en": "decent",
     "ru": "приличный",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "declare",
@@ -15088,7 +15088,7 @@ const WORDS = [
     "en": "dismiss",
     "ru": "увольнять",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "display",
@@ -15238,7 +15238,7 @@ const WORDS = [
     "en": "enhance",
     "ru": "усилить",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "ensure",
@@ -15370,7 +15370,7 @@ const WORDS = [
     "en": "extent",
     "ru": "степень",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "external",
@@ -15742,13 +15742,13 @@ const WORDS = [
     "en": "imply",
     "ru": "подразумевать",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "impose",
     "ru": "навязывать",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "impress",
@@ -15832,7 +15832,7 @@ const WORDS = [
     "en": "inquiry",
     "ru": "расследование",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "insight",
@@ -16150,7 +16150,7 @@ const WORDS = [
     "en": "minor",
     "ru": "незначительный",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "minority",
@@ -16264,7 +16264,7 @@ const WORDS = [
     "en": "obligation",
     "ru": "обязательство",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "observation",
@@ -16294,7 +16294,7 @@ const WORDS = [
     "en": "offend",
     "ru": "обидеть",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "offense",
@@ -16360,7 +16360,7 @@ const WORDS = [
     "en": "otherwise",
     "ru": "иначе",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "outcome",
@@ -16462,7 +16462,7 @@ const WORDS = [
     "en": "pile",
     "ru": "куча",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "pitch",
@@ -16510,7 +16510,7 @@ const WORDS = [
     "en": "praise",
     "ru": "хвалить",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "pregnant",
@@ -16588,7 +16588,7 @@ const WORDS = [
     "en": "prospect",
     "ru": "перспектива",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "protection",
@@ -16810,7 +16810,7 @@ const WORDS = [
     "en": "reveal",
     "ru": "раскрыть",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "revolution",
@@ -16978,7 +16978,7 @@ const WORDS = [
     "en": "settle",
     "ru": "решить",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "severe",
@@ -17008,7 +17008,7 @@ const WORDS = [
     "en": "shallow",
     "ru": "мелкий",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "shame",
@@ -17338,7 +17338,7 @@ const WORDS = [
     "en": "tough",
     "ru": "жесткий",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "transfer",
@@ -17404,7 +17404,7 @@ const WORDS = [
     "en": "unconscious",
     "ru": "без сознания",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "unexpected",
@@ -17452,7 +17452,7 @@ const WORDS = [
     "en": "urge",
     "ru": "побуждать",
     "level": "B2",
-    "source": "personal"
+    "source": "oxford"
   },
   {
     "en": "van",
