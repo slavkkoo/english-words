@@ -657,6 +657,15 @@
             </div>
 
             <div class="setting-item">
+                <div class="setting-label">Источник слов</div>
+                <select class="setting-input" id="word-source-filter" onchange="saveSettings()">
+                    <option value="all">Все слова</option>
+                    <option value="oxford">Oxford 3000</option>
+                    <option value="personal">Мои слова</option>
+                </select>
+            </div>
+
+            <div class="setting-item">
                 <div class="setting-label">Слов за сессию</div>
                 <input type="number" class="setting-input" id="words-per-session" value="50" min="5" max="100" onchange="saveSettings()">
             </div>
@@ -685,7 +694,8 @@
         let settings = {
             wordsPerSession: 50,
             repeatCount: 2,
-            levelFilter: 'all'
+            levelFilter: 'all',
+            sourceFilter: 'all'
         };
         let currentSession = [];
         let currentIndex = 0;
@@ -723,6 +733,7 @@
             }
             document.getElementById('words-per-session').value = settings.wordsPerSession;
             document.getElementById('repeat-count').value = settings.repeatCount;
+            document.getElementById('word-source-filter').value = settings.sourceFilter;
 
             // Update level filter chips
             document.querySelectorAll('.level-chip').forEach(chip => {
@@ -733,6 +744,7 @@
         function saveSettings() {
             settings.wordsPerSession = parseInt(document.getElementById('words-per-session').value) || 50;
             settings.repeatCount = parseInt(document.getElementById('repeat-count').value) || 2;
+            settings.sourceFilter = document.getElementById('word-source-filter').value;
             localStorage.setItem('english-words-settings', JSON.stringify(settings));
             updateUI();
         }
@@ -747,11 +759,25 @@
         }
 
         function getFilteredWords() {
-            if (settings.levelFilter === 'all') return words;
-            if (settings.levelFilter === 'personal') {
-                return words.filter(w => w.source === 'personal' || !w.level);
+            let filtered = words;
+
+            // Filter by source (from settings)
+            if (settings.sourceFilter === 'oxford') {
+                filtered = filtered.filter(w => w.source === 'oxford');
+            } else if (settings.sourceFilter === 'personal') {
+                filtered = filtered.filter(w => w.source === 'personal');
             }
-            return words.filter(w => w.level === settings.levelFilter);
+
+            // Filter by level (from chips)
+            if (settings.levelFilter !== 'all') {
+                if (settings.levelFilter === 'personal') {
+                    filtered = filtered.filter(w => w.source === 'personal' || !w.level);
+                } else {
+                    filtered = filtered.filter(w => w.level === settings.levelFilter);
+                }
+            }
+
+            return filtered;
         }
 
         function updateUI() {
