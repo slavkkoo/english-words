@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>English Words</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #C15F3C;
+            --primary-light: #D4785A;
+            --primary-dark: #A34E2F;
+            --bg: #FAF8F5;
+            --bg-card: #FFFFFF;
+            --text: #1A1A1A;
+            --text-muted: #6B6B6B;
+            --success: #2D8A4E;
+            --success-light: #E8F5EC;
+            --warning: #D4A03C;
+            --border: #E8E4DF;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+            --radius: 16px;
+            --radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .settings-btn {
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: var(--bg-card);
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .settings-btn:active {
+            transform: scale(0.95);
+        }
+
+        .settings-btn svg {
+            width: 22px;
+            height: 22px;
+            color: var(--text-muted);
+        }
+
+        /* Stats Panel */
+        .stats-panel {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .stat-value.success {
+            color: var(--success);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .progress-bar {
+            margin-top: 20px;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Start Button */
+        .start-btn {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .start-btn:active {
+            transform: scale(0.98);
+        }
+
+        .start-btn:disabled {
+            background: var(--border);
+            color: var(--text-muted);
+            box-shadow: none;
+        }
+
+        /* Flashcard Screen */
+        .flashcard-screen {
+            display: none;
+            flex-direction: column;
+            min-height: calc(100vh - 40px);
+        }
+
+        .flashcard-screen.active {
+            display: flex;
+        }
+
+        .home-screen.hidden {
+            display: none;
+        }
+
+        .flashcard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: var(--bg-card);
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+        }
+
+        .session-progress {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .level-badge {
+            padding: 6px 12px;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .level-badge.a1 { background: #2D8A4E; }
+        .level-badge.a2 { background: #3498DB; }
+        .level-badge.b1 { background: #9B59B6; }
+        .level-badge.b2 { background: #E74C3C; }
+        .level-badge.personal { background: var(--primary); }
+
+        /* Flashcard */
+        .flashcard {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 40px 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            transition: transform 0.3s;
+            min-height: 300px;
+        }
+
+        .flashcard:active {
+            transform: scale(0.98);
+        }
+
+        .flashcard.flipped .card-front {
+            display: none;
+        }
+
+        .flashcard.flipped .card-back {
+            display: flex;
+        }
+
+        .card-front, .card-back {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+
+        .card-back {
+            display: none;
+        }
+
+        .tap-hint {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .word-english {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .word-russian {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .word-source {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 16px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .action-btn {
+            padding: 18px;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .action-btn:active {
+            transform: scale(0.95);
+        }
+
+        .action-btn.dont-know {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        .action-btn.know {
+            background: var(--success);
+            color: white;
+        }
+
+        /* Settings Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            padding: 24px;
+            width: 100%;
+            max-width: 480px;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--border);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .setting-item {
+            margin-bottom: 20px;
+        }
+
+        .setting-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .setting-input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .setting-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .export-import-btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .secondary-btn {
+            padding: 14px;
+            border: 2px solid var(--border);
+            background: transparent;
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .secondary-btn:active {
+            background: var(--border);
+        }
+
+        .reset-btn {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #E74C3C;
+            background: transparent;
+            color: #E74C3C;
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        /* Session Complete */
+        .session-complete {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 24px;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .session-complete.active {
+            display: flex;
+        }
+
+        .complete-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .complete-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .complete-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        /* Level Filter */
+        .level-filter {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .level-chip {
+            padding: 8px 14px;
+            background: var(--border);
+            border: none;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .level-chip.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Hidden file input */
+        #import-file {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Home Screen -->
+        <div class="home-screen" id="home-screen">
+            <div class="header">
+                <div class="logo">English Words</div>
+                <button class="settings-btn" onclick="openSettings()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="stats-panel">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value success" id="known-count">0</div>
+                        <div class="stat-label">Выучено</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="learning-count">0</div>
+                        <div class="stat-label">Учу</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="remaining-count">0</div>
+                        <div class="stat-label">Осталось</div>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text" id="progress-text">0% завершено</div>
+            </div>
+
+            <div class="level-filter">
+                <button class="level-chip active" data-level="all" onclick="setLevelFilter('all')">Все</button>
+                <button class="level-chip" data-level="A1" onclick="setLevelFilter('A1')">A1</button>
+                <button class="level-chip" data-level="A2" onclick="setLevelFilter('A2')">A2</button>
+                <button class="level-chip" data-level="B1" onclick="setLevelFilter('B1')">B1</button>
+                <button class="level-chip" data-level="B2" onclick="setLevelFilter('B2')">B2</button>
+                <button class="level-chip" data-level="personal" onclick="setLevelFilter('personal')">Мои</button>
+            </div>
+
+            <button class="start-btn" id="start-btn" onclick="startSession()">
+                Начать изучение
+            </button>
+        </div>
+
+        <!-- Flashcard Screen -->
+        <div class="flashcard-screen" id="flashcard-screen">
+            <div class="flashcard-header">
+                <button class="back-btn" onclick="endSession()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <span class="session-progress" id="session-progress">1 / 50</span>
+                <span class="level-badge" id="current-level">A1</span>
+            </div>
+
+            <div class="flashcard" id="flashcard" onclick="flipCard()">
+                <div class="card-front">
+                    <div class="tap-hint">Нажми, чтобы увидеть перевод</div>
+                    <div class="word-english" id="word-english">Word</div>
+                </div>
+                <div class="card-back">
+                    <div class="word-english" id="word-english-back">Word</div>
+                    <div class="word-russian" id="word-russian">Слово</div>
+                    <div class="word-source" id="word-source">Oxford 3000</div>
+                </div>
+            </div>
+
+            <div class="action-buttons" id="action-buttons">
+                <button class="action-btn dont-know" onclick="markWord(false)">Не знаю</button>
+                <button class="action-btn know" onclick="markWord(true)">Знаю</button>
+            </div>
+
+            <div class="session-complete" id="session-complete">
+                <div class="complete-icon">🎉</div>
+                <div class="complete-title">Сессия завершена!</div>
+                <div class="complete-subtitle" id="session-summary">Вы выучили 10 новых слов</div>
+                <button class="start-btn" onclick="endSession()">Вернуться</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settings-modal" onclick="closeSettingsOnOverlay(event)">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Настройки</div>
+                <button class="close-btn" onclick="closeSettings()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-label">Слов за сессию</div>
+                <input type="number" class="setting-input" id="words-per-session" value="50" min="5" max="100" onchange="saveSettings()">
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-label">Повторений для незнакомых слов</div>
+                <input type="number" class="setting-input" id="repeat-count" value="2" min="1" max="5" onchange="saveSettings()">
+            </div>
+
+            <div class="export-import-btns">
+                <button class="secondary-btn" onclick="exportProgress()">Экспорт</button>
+                <button class="secondary-btn" onclick="document.getElementById('import-file').click()">Импорт</button>
+            </div>
+
+            <input type="file" id="import-file" accept=".json" onchange="importProgress(event)">
+
+            <button class="reset-btn" onclick="resetProgress()">Сбросить прогресс</button>
+        </div>
+    </div>
+
+    <script src="words.js"></script>
+    <script>
+        // State
+        let words = [];
+        let progress = {};
+        let settings = {
+            wordsPerSession: 50,
+            repeatCount: 2,
+            levelFilter: 'all'
+        };
+        let currentSession = [];
+        let currentIndex = 0;
+        let sessionStats = { learned: 0, reviewed: 0 };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadWords();
+            loadProgress();
+            loadSettings();
+            updateUI();
+        });
+
+        function loadWords() {
+            // WORDS is loaded from words.js
+            words = typeof WORDS !== 'undefined' ? WORDS : [];
+            console.log(`Loaded ${words.length} words`);
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('english-words-progress');
+            if (saved) {
+                progress = JSON.parse(saved);
+            }
+        }
+
+        function saveProgress() {
+            localStorage.setItem('english-words-progress', JSON.stringify(progress));
+        }
+
+        function loadSettings() {
+            const saved = localStorage.getItem('english-words-settings');
+            if (saved) {
+                settings = { ...settings, ...JSON.parse(saved) };
+            }
+            document.getElementById('words-per-session').value = settings.wordsPerSession;
+            document.getElementById('repeat-count').value = settings.repeatCount;
+
+            // Update level filter chips
+            document.querySelectorAll('.level-chip').forEach(chip => {
+                chip.classList.toggle('active', chip.dataset.level === settings.levelFilter);
+            });
+        }
+
+        function saveSettings() {
+            settings.wordsPerSession = parseInt(document.getElementById('words-per-session').value) || 50;
+            settings.repeatCount = parseInt(document.getElementById('repeat-count').value) || 2;
+            localStorage.setItem('english-words-settings', JSON.stringify(settings));
+            updateUI();
+        }
+
+        function setLevelFilter(level) {
+            settings.levelFilter = level;
+            document.querySelectorAll('.level-chip').forEach(chip => {
+                chip.classList.toggle('active', chip.dataset.level === level);
+            });
+            saveSettings();
+            updateUI();
+        }
+
+        function getFilteredWords() {
+            if (settings.levelFilter === 'all') return words;
+            if (settings.levelFilter === 'personal') {
+                return words.filter(w => w.source === 'personal' || !w.level);
+            }
+            return words.filter(w => w.level === settings.levelFilter);
+        }
+
+        function updateUI() {
+            const filtered = getFilteredWords();
+            const known = filtered.filter(w => progress[w.en]?.status === 'known').length;
+            const learning = filtered.filter(w => progress[w.en]?.status === 'learning').length;
+            const remaining = filtered.length - known;
+            const percentage = filtered.length > 0 ? Math.round((known / filtered.length) * 100) : 0;
+
+            document.getElementById('known-count').textContent = known;
+            document.getElementById('learning-count').textContent = learning;
+            document.getElementById('remaining-count').textContent = remaining;
+            document.getElementById('progress-fill').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = `${percentage}% завершено (${filtered.length} слов)`;
+
+            const startBtn = document.getElementById('start-btn');
+            if (remaining === 0 && filtered.length > 0) {
+                startBtn.textContent = 'Все слова выучены!';
+                startBtn.disabled = true;
+            } else {
+                startBtn.textContent = 'Начать изучение';
+                startBtn.disabled = false;
+            }
+        }
+
+        function startSession() {
+            const filtered = getFilteredWords();
+
+            // Get words to study: new words + learning words
+            const newWords = filtered.filter(w => !progress[w.en]);
+            const learningWords = filtered.filter(w => progress[w.en]?.status === 'learning');
+
+            // Prioritize learning words, then add new words
+            let sessionWords = [...learningWords];
+            const neededNew = settings.wordsPerSession - sessionWords.length;
+
+            if (neededNew > 0) {
+                // Shuffle new words and take needed amount
+                const shuffledNew = newWords.sort(() => Math.random() - 0.5);
+                sessionWords = sessionWords.concat(shuffledNew.slice(0, neededNew));
+            }
+
+            // Shuffle session
+            currentSession = sessionWords.sort(() => Math.random() - 0.5);
+            currentIndex = 0;
+            sessionStats = { learned: 0, reviewed: 0 };
+
+            if (currentSession.length === 0) {
+                alert('Нет слов для изучения!');
+                return;
+            }
+
+            document.getElementById('home-screen').classList.add('hidden');
+            document.getElementById('flashcard-screen').classList.add('active');
+            document.getElementById('session-complete').classList.remove('active');
+            document.getElementById('flashcard').style.display = 'flex';
+            document.getElementById('action-buttons').style.display = 'grid';
+
+            showCurrentWord();
+        }
+
+        function showCurrentWord() {
+            if (currentIndex >= currentSession.length) {
+                showSessionComplete();
+                return;
+            }
+
+            const word = currentSession[currentIndex];
+            document.getElementById('word-english').textContent = word.en;
+            document.getElementById('word-english-back').textContent = word.en;
+            document.getElementById('word-russian').textContent = word.ru || '—';
+
+            const source = word.source === 'personal' ? 'Мой словарь' : `Oxford 3000`;
+            const level = word.level ? ` • ${word.level}` : '';
+            document.getElementById('word-source').textContent = source + level;
+
+            // Update level badge
+            const badge = document.getElementById('current-level');
+            badge.textContent = word.level || 'Мои';
+            badge.className = 'level-badge ' + (word.level ? word.level.toLowerCase() : 'personal');
+
+            // Update progress
+            document.getElementById('session-progress').textContent =
+                `${currentIndex + 1} / ${currentSession.length}`;
+
+            // Reset card
+            document.getElementById('flashcard').classList.remove('flipped');
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        }
+
+        function markWord(known) {
+            const word = currentSession[currentIndex];
+
+            if (known) {
+                progress[word.en] = { status: 'known', date: Date.now() };
+                sessionStats.learned++;
+            } else {
+                const current = progress[word.en] || { repeatsLeft: settings.repeatCount };
+                const repeatsLeft = (current.repeatsLeft || settings.repeatCount) - 1;
+
+                if (repeatsLeft > 0) {
+                    progress[word.en] = { status: 'learning', repeatsLeft, date: Date.now() };
+                    // Add to end of session for repeat
+                    currentSession.push(word);
+                } else {
+                    progress[word.en] = { status: 'learning', repeatsLeft: settings.repeatCount, date: Date.now() };
+                }
+                sessionStats.reviewed++;
+            }
+
+            saveProgress();
+            currentIndex++;
+            showCurrentWord();
+        }
+
+        function showSessionComplete() {
+            document.getElementById('flashcard').style.display = 'none';
+            document.getElementById('action-buttons').style.display = 'none';
+            document.getElementById('session-complete').classList.add('active');
+            document.getElementById('session-summary').textContent =
+                `Выучено: ${sessionStats.learned} | Повторено: ${sessionStats.reviewed}`;
+        }
+
+        function endSession() {
+            document.getElementById('home-screen').classList.remove('hidden');
+            document.getElementById('flashcard-screen').classList.remove('active');
+            updateUI();
+        }
+
+        function openSettings() {
+            document.getElementById('settings-modal').classList.add('active');
+        }
+
+        function closeSettings() {
+            document.getElementById('settings-modal').classList.remove('active');
+        }
+
+        function closeSettingsOnOverlay(e) {
+            if (e.target === e.currentTarget) {
+                closeSettings();
+            }
+        }
+
+        function exportProgress() {
+            const data = {
+                progress,
+                settings,
+                exportDate: new Date().toISOString(),
+                version: 1
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `english-words-progress-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importProgress(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.progress) {
+                        progress = data.progress;
+                        saveProgress();
+                    }
+                    if (data.settings) {
+                        settings = { ...settings, ...data.settings };
+                        localStorage.setItem('english-words-settings', JSON.stringify(settings));
+                        loadSettings();
+                    }
+                    updateUI();
+                    alert('Прогресс импортирован!');
+                } catch (err) {
+                    alert('Ошибка при импорте файла');
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        function resetProgress() {
+            if (confirm('Вы уверены? Весь прогресс будет удалён.')) {
+                progress = {};
+                saveProgress();
+                updateUI();
+                closeSettings();
+            }
+        }
+    </script>
+</body>
+</html>
