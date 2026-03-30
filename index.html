@@ -619,7 +619,7 @@
 
             <div class="action-buttons" id="action-buttons">
                 <button class="action-btn dont-know" id="dont-know-btn" onclick="markWord(false)">Не знаю</button>
-                <button class="action-btn know" onclick="markWord(true)">Знаю</button>
+                <button class="action-btn know" id="know-btn" onclick="markWord(true)">Знаю</button>
             </div>
 
             <div class="session-complete" id="session-complete">
@@ -826,9 +826,13 @@
             document.getElementById('session-progress').textContent =
                 `${currentIndex + 1} / ${currentSession.length}`;
 
-            // Reset card and button
+            // Reset card and buttons
             document.getElementById('flashcard').classList.remove('flipped');
-            document.getElementById('dont-know-btn').textContent = 'Не знаю';
+            const dontKnowBtn = document.getElementById('dont-know-btn');
+            const knowBtn = document.getElementById('know-btn');
+            dontKnowBtn.textContent = 'Не знаю';
+            dontKnowBtn.style.gridColumn = '';
+            knowBtn.style.display = '';
 
             // Load transcription and definition
             loadWordDetails(word.en);
@@ -883,11 +887,14 @@
             const card = document.getElementById('flashcard');
             const isFlipped = card.classList.contains('flipped');
             const dontKnowBtn = document.getElementById('dont-know-btn');
+            const knowBtn = document.getElementById('know-btn');
 
             // If "Don't know" and card not flipped - show translation first
             if (!known && !isFlipped) {
                 card.classList.add('flipped');
                 dontKnowBtn.textContent = 'Дальше';
+                dontKnowBtn.style.gridColumn = '1 / -1'; // Full width
+                knowBtn.style.display = 'none';
                 return;
             }
 
