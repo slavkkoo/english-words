@@ -590,12 +590,9 @@
             </div>
 
             <div class="level-filter">
-                <button class="level-chip active" data-level="all" onclick="setLevelFilter('all')">Все</button>
-                <button class="level-chip" data-level="A1" onclick="setLevelFilter('A1')">A1</button>
-                <button class="level-chip" data-level="A2" onclick="setLevelFilter('A2')">A2</button>
-                <button class="level-chip" data-level="B1" onclick="setLevelFilter('B1')">B1</button>
-                <button class="level-chip" data-level="B2" onclick="setLevelFilter('B2')">B2</button>
-                <button class="level-chip" data-level="personal" onclick="setLevelFilter('personal')">Мои</button>
+                <button class="level-chip active" data-source="all" onclick="setSourceFilter('all')">Все</button>
+                <button class="level-chip" data-source="oxford" onclick="setSourceFilter('oxford')">Oxford 3000</button>
+                <button class="level-chip" data-source="personal" onclick="setSourceFilter('personal')">Мои слова</button>
             </div>
 
             <button class="start-btn" id="start-btn" onclick="startSession()">
@@ -735,9 +732,9 @@
             document.getElementById('repeat-count').value = settings.repeatCount;
             document.getElementById('word-source-filter').value = settings.sourceFilter;
 
-            // Update level filter chips
+            // Update source filter chips
             document.querySelectorAll('.level-chip').forEach(chip => {
-                chip.classList.toggle('active', chip.dataset.level === settings.levelFilter);
+                chip.classList.toggle('active', chip.dataset.source === settings.sourceFilter);
             });
         }
 
@@ -749,35 +746,22 @@
             updateUI();
         }
 
-        function setLevelFilter(level) {
-            settings.levelFilter = level;
+        function setSourceFilter(source) {
+            settings.sourceFilter = source;
             document.querySelectorAll('.level-chip').forEach(chip => {
-                chip.classList.toggle('active', chip.dataset.level === level);
+                chip.classList.toggle('active', chip.dataset.source === source);
             });
+            document.getElementById('word-source-filter').value = source;
             saveSettings();
-            updateUI();
         }
 
         function getFilteredWords() {
-            let filtered = words;
-
-            // Filter by source (from settings)
             if (settings.sourceFilter === 'oxford') {
-                filtered = filtered.filter(w => w.source === 'oxford');
+                return words.filter(w => w.source === 'oxford');
             } else if (settings.sourceFilter === 'personal') {
-                filtered = filtered.filter(w => w.source === 'personal');
+                return words.filter(w => w.source === 'personal');
             }
-
-            // Filter by level (from chips)
-            if (settings.levelFilter !== 'all') {
-                if (settings.levelFilter === 'personal') {
-                    filtered = filtered.filter(w => w.source === 'personal' || !w.level);
-                } else {
-                    filtered = filtered.filter(w => w.level === settings.levelFilter);
-                }
-            }
-
-            return filtered;
+            return words;
         }
 
         function updateUI() {
