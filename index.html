@@ -309,13 +309,22 @@
             line-height: 1.2;
         }
 
-        .word-alt {
-            font-size: 15px;
+        .word-alt-ru {
+            font-size: 18px;
+            color: var(--text);
+            margin-top: 8px;
+            opacity: 0.6;
+        }
+
+        .word-example {
+            font-size: 14px;
             color: var(--text-muted);
             margin-top: 16px;
             font-style: italic;
             line-height: 1.4;
-            max-width: 100%;
+            padding: 10px 14px;
+            background: var(--bg);
+            border-radius: 8px;
         }
 
         .word-source {
@@ -615,7 +624,8 @@
                     <div class="word-english" id="word-english-back">Word</div>
                     <div class="word-transcription" id="word-transcription"></div>
                     <div class="word-russian" id="word-russian">Слово</div>
-                    <div class="word-alt" id="word-alt"></div>
+                    <div class="word-alt-ru" id="word-alt-ru"></div>
+                    <div class="word-example" id="word-example"></div>
                     <div class="word-source" id="word-source">Oxford 3000</div>
                 </div>
             </div>
@@ -814,7 +824,8 @@
             document.getElementById('word-english-back').textContent = word.en;
             document.getElementById('word-russian').textContent = word.ru || '—';
             document.getElementById('word-transcription').textContent = '';
-            document.getElementById('word-alt').textContent = '';
+            document.getElementById('word-alt-ru').textContent = '';
+            document.getElementById('word-example').textContent = '';
 
             const source = word.source === 'personal' ? 'Мой словарь' : `Oxford 3000`;
             const level = word.level ? ` • ${word.level}` : '';
@@ -842,7 +853,7 @@
         }
 
         // Cache for API responses
-        let wordCache = JSON.parse(localStorage.getItem('word-cache') || '{}');
+        let wordCache = JSON.parse(localStorage.getItem('word-cache-v2') || '{}');
 
         async function loadWordDetails(word) {
             // Check cache first
@@ -851,10 +862,13 @@
                 return;
             }
 
+            let transcription = '';
+            let example = '';
+            let altTranslations = '';
+
             try {
+                // 1. Get transcription and example from Dictionary API
                 const dictResponse = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-                let transcription = '';
-                let example = '';
 
                 if (dictResponse.ok) {
                     const dictData = await dictResponse.json();
@@ -874,24 +888,57 @@
                         if (example) break;
                     }
                 }
-
-                const details = { transcription, example };
-
-                wordCache[word] = details;
-                if (Object.keys(wordCache).length > 1000) {
-                    const keys = Object.keys(wordCache);
-                    delete wordCache[keys[0]];
-                }
-                localStorage.setItem('word-cache', JSON.stringify(wordCache));
-                displayWordDetails(details);
             } catch (e) {
-                console.log('API error:', e);
+                console.log('Dictionary API error:', e);
             }
+
+            try {
+                // 2. Get alternative translations from MyMemory API
+                const transResponse = await fetch(
+                    `https://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=en|ru`
+                );
+
+                if (transResponse.ok) {
+                    const transData = await transResponse.json();
+                    const matches = transData.matches || [];
+
+                    // Get unique translations
+                    const seen = new Set();
+                    const alts = [];
+
+                    for (const m of matches) {
+                        const t = m.translation?.toLowerCase().trim();
+                        if (t && !seen.has(t) && t !== word.toLowerCase()) {
+                            seen.add(t);
+                            alts.push(m.translation.trim());
+                            if (alts.length >= 3) break;
+                        }
+                    }
+
+                    // Skip first (main translation), take next 2
+                    if (alts.length > 1) {
+                        altTranslations = alts.slice(1, 3).join(', ');
+                    }
+                }
+            } catch (e) {
+                console.log('Translation API error:', e);
+            }
+
+            const details = { transcription, example, altTranslations };
+
+            wordCache[word] = details;
+            if (Object.keys(wordCache).length > 2000) {
+                const keys = Object.keys(wordCache);
+                delete wordCache[keys[0]];
+            }
+            localStorage.setItem('word-cache-v2', JSON.stringify(wordCache));
+            displayWordDetails(details);
         }
 
         function displayWordDetails(details) {
             const transcriptionEl = document.getElementById('word-transcription');
-            const altEl = document.getElementById('word-alt');
+            const altRuEl = document.getElementById('word-alt-ru');
+            const exampleEl = document.getElementById('word-example');
 
             if (details.transcription) {
                 transcriptionEl.textContent = details.transcription;
@@ -900,11 +947,18 @@
                 transcriptionEl.style.display = 'none';
             }
 
-            if (details.example) {
-                altEl.textContent = `"${details.example}"`;
-                altEl.style.display = '';
+            if (details.altTranslations) {
+                altRuEl.textContent = details.altTranslations;
+                altRuEl.style.display = '';
             } else {
-                altEl.style.display = 'none';
+                altRuEl.style.display = 'none';
+            }
+
+            if (details.example) {
+                exampleEl.textContent = `"${details.example}"`;
+                exampleEl.style.display = '';
+            } else {
+                exampleEl.style.display = 'none';
             }
         }
 
