@@ -310,10 +310,12 @@
         }
 
         .word-alt {
-            font-size: 18px;
-            color: var(--text);
-            margin-top: 12px;
-            opacity: 0.7;
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-top: 16px;
+            font-style: italic;
+            line-height: 1.4;
+            max-width: 100%;
         }
 
         .word-source {
@@ -850,43 +852,33 @@
             }
 
             try {
-                // Get transcription from Dictionary API
                 const dictResponse = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
                 let transcription = '';
+                let example = '';
 
                 if (dictResponse.ok) {
                     const dictData = await dictResponse.json();
+
+                    // Get transcription
                     transcription = dictData[0]?.phonetic ||
                                    dictData[0]?.phonetics?.find(p => p.text)?.text || '';
-                }
 
-                // Get alternative translation from MyMemory API
-                let altTranslation = '';
-                try {
-                    const transResponse = await fetch(
-                        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=en|ru`
-                    );
-                    if (transResponse.ok) {
-                        const transData = await transResponse.json();
-                        // Get matches (alternative translations)
-                        const matches = transData.matches || [];
-                        const alternatives = matches
-                            .map(m => m.translation)
-                            .filter(t => t && t.toLowerCase() !== word.toLowerCase())
-                            .slice(0, 3);
-
-                        if (alternatives.length > 1) {
-                            altTranslation = alternatives.slice(1).join(', ');
+                    // Get example sentence in English
+                    for (const meaning of dictData[0]?.meanings || []) {
+                        for (const def of meaning.definitions || []) {
+                            if (def.example) {
+                                example = def.example;
+                                break;
+                            }
                         }
+                        if (example) break;
                     }
-                } catch (e) {
-                    console.log('Translation API error:', e);
                 }
 
-                const details = { transcription, altTranslation };
+                const details = { transcription, example };
 
                 wordCache[word] = details;
-                if (Object.keys(wordCache).length > 500) {
+                if (Object.keys(wordCache).length > 1000) {
                     const keys = Object.keys(wordCache);
                     delete wordCache[keys[0]];
                 }
@@ -908,8 +900,8 @@
                 transcriptionEl.style.display = 'none';
             }
 
-            if (details.altTranslation) {
-                altEl.textContent = details.altTranslation;
+            if (details.example) {
+                altEl.textContent = `"${details.example}"`;
                 altEl.style.display = '';
             } else {
                 altEl.style.display = 'none';
